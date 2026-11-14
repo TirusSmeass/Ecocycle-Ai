@@ -281,16 +281,23 @@
         .btn-buy { background: var(--bg-main); border: 1px solid var(--border); color: var(--text-main); }
         .btn-buy:hover { border-color: var(--primary); color: var(--primary); }
 
-        /* ========== IMPACT & VOLUNTEER ========== */
+        /* ========== VOLUNTEER ========== */
+        .volunteer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 32px; }
+        .vol-card { text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .vol-avatar { width: 64px; height: 64px; background: var(--primary-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--primary); margin-bottom: 16px; }
+        .vol-name { font-weight: 700; margin-bottom: 4px; }
+        .vol-role { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px; }
+        .vol-badge { background: var(--bg-main); border: 1px solid var(--border); padding: 4px 12px; border-radius: var(--radius-full); font-size: 0.7rem; font-weight: 600; margin-bottom: 16px; }
+        .vol-desc { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px; flex: 1; }
+        .vol-btn { width: 100%; padding: 8px; border-radius: var(--radius-md); background: #25D366; color: #fff; font-weight: 600; border: none; cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .vol-btn:hover { background: #128C7E; transform: translateY(-2px); }
+
+        /* ========== IMPACT ========== */
         .impact-section { background: var(--text-main); color: #fff; text-align: center; }
         .impact-section .section-title { color: #fff; }
         .impact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
         .impact-item { background: rgba(255,255,255,0.05); padding: 32px; border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.1); }
         .impact-item .number { font-size: 2.5rem; font-weight: 800; color: var(--primary-light); display: block; margin-bottom: 8px; }
-
-        .volunteer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-        .vol-card { display: flex; gap: 16px; align-items: flex-start; }
-        .vol-avatar { width: 48px; height: 48px; background: var(--bg-main); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--primary); flex-shrink: 0; }
 
         /* ========== CART SIDEBAR ========== */
         .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2000; opacity: 0; pointer-events: none; transition: var(--transition); }
@@ -300,6 +307,26 @@
         .cart-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
         .cart-items { flex: 1; overflow-y: auto; }
         .cart-footer { padding-top: 16px; border-top: 1px solid var(--border); }
+
+        /* ========== FLOATING WHATSAPP ========== */
+        .wa-float {
+            position: fixed; bottom: 24px; left: 24px; z-index: 999;
+            display: flex; flex-direction: column; align-items: flex-start; gap: 8px;
+        }
+        .wa-btn {
+            display: flex; align-items: center; gap: 10px;
+            background: #25D366; color: #fff; padding: 12px 20px;
+            border-radius: var(--radius-full); text-decoration: none;
+            font-weight: 600; font-size: 0.9rem;
+            box-shadow: var(--shadow-lg); transition: var(--transition);
+        }
+        .wa-btn:hover { transform: translateY(-2px); background: #128C7E; }
+        .wa-label {
+            background: var(--bg-card); padding: 4px 12px;
+            border-radius: var(--radius-full); font-size: 0.7rem;
+            color: var(--text-muted); border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
 
         /* ========== ANIMATIONS ========== */
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -311,10 +338,21 @@
             .nav-links { display: none; }
             .hamburger { display: block; }
             .impact-grid { grid-template-columns: 1fr; }
+            .wa-btn span { display: none; }
+            .wa-btn { padding: 12px; border-radius: 50%; }
         }
     </style>
 </head>
 <body>
+
+    <!-- FLOATING WHATSAPP CS -->
+    <div class="wa-float">
+        <a href="https://wa.me/6281212345678?text=Halo%20EcoCycle%20AI,%20saya%20ingin%20bertanya." target="_blank" class="wa-btn">
+            <i class="fab fa-whatsapp" style="font-size: 1.4rem;"></i>
+            <span>Chat Customer Service</span>
+        </a>
+        <span class="wa-label">Online 24 Jam</span>
+    </div>
 
     <nav class="navbar" id="navbar">
         <div class="container">
@@ -346,7 +384,10 @@
             <div class="section-badge" style="background: rgba(255,255,255,0.1); color: #fff;">Platform NLP & Rule-Based System</div>
             <h1>Transformasi Limbah Pesisir <br><span>Menjadi Produk Bernilai Ekonomi</span></h1>
             <p>Sistem cerdas berbasis web yang menghubungkan identifikasi limbah, rekomendasi produk, dan akses pasar UMKM dalam satu ekosistem sirkular.</p>
-            <a href="#setor" class="btn-primary"><i class="fas fa-arrow-right"></i> Mulai Setor Limbah</a>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                <a href="#setor" class="btn-primary"><i class="fas fa-arrow-right"></i> Mulai Setor Limbah</a>
+                <a href="#volunteer" class="btn-primary" style="background: transparent; border: 1px solid rgba(255,255,255,0.3);"><i class="fas fa-user-graduate"></i> Bimbingan Volunteer</a>
+            </div>
             
             <div class="hero-stats">
                 <div><h3>500+</h3><p>UMKM Terbantu</p></div>
@@ -455,9 +496,7 @@
         </div>
     </section>
 
-    <!-- ============================================================== -->
-    <!-- FITUR AI (NLP & RULE-BASED) YANG SEBELUMNYA HILANG -->
-    <!-- ============================================================== -->
+    <!-- FITUR AI -->
     <section class="bg-alt" id="fitur">
         <div class="container">
             <div class="section-badge">Teknologi Inti</div>
@@ -465,7 +504,6 @@
             <p class="section-desc">Uji coba langsung bagaimana AI kami memproses teks, menghitung nilai ekonomi, dan memberikan rekomendasi produk secara transparan.</p>
             
             <div class="features-grid">
-                <!-- Fitur 1: NLP -->
                 <div class="card feature-card">
                     <div class="icon-box"><i class="fas fa-language"></i></div>
                     <h4>1. NLP Text Analysis</h4>
@@ -479,7 +517,6 @@
                     </div>
                 </div>
 
-                <!-- Fitur 2: Rule-Based Valuation -->
                 <div class="card feature-card">
                     <div class="icon-box"><i class="fas fa-calculator"></i></div>
                     <h4>2. Rule-Based Valuation</h4>
@@ -506,7 +543,6 @@
                     </div>
                 </div>
 
-                <!-- Fitur 3: Rule-Based Recommendation -->
                 <div class="card feature-card">
                     <div class="icon-box"><i class="fas fa-lightbulb"></i></div>
                     <h4>3. Rule-Based Recommendation</h4>
@@ -534,6 +570,53 @@
             <p class="section-desc">Produk fesyen hasil olahan limbah pesisir dari mitra UMKM kami.</p>
             
             <div class="marketplace-grid" id="productsGrid"></div>
+        </div>
+    </section>
+
+    <!-- VOLUNTEER SECTION -->
+    <section class="bg-alt" id="volunteer">
+        <div class="container">
+            <div class="section-badge">Pendampingan</div>
+            <h2 class="section-title">Volunteer Mahasiswa</h2>
+            <p class="section-desc">Butuh bantuan menggunakan EcoCycle AI? Volunteer dari UNESA dan Universitas Jember siap memandu Anda secara gratis melalui WhatsApp.</p>
+
+            <div class="volunteer-grid">
+                <div class="card vol-card">
+                    <div class="vol-avatar"><i class="fas fa-user-graduate"></i></div>
+                    <div class="vol-name">Ahmad Naufal Tirus</div>
+                    <div class="vol-role">Mahasiswa D4 Manajemen Informatika - UNESA</div>
+                    <span class="vol-badge">Volunteer Senior</span>
+                    <p class="vol-desc">Siap membantu Anda memahami cara kerja AI, fitur setor limbah, dan analisis NLP.</p>
+                    <button class="vol-btn" onclick="window.open('https://wa.me/6282143854418?text=Halo%20Bang%20Naufal,%20saya%20butuh%20bimbingan%20EcoCycle%20AI')"><i class="fab fa-whatsapp"></i> Chat Bimbingan</button>
+                </div>
+
+                <div class="card vol-card">
+                    <div class="vol-avatar"><i class="fas fa-user-graduate"></i></div>
+                    <div class="vol-name">Shevi Kusuma Wardani</div>
+                    <div class="vol-role">Mahasiswa D4 Manajemen Informatika - UNESA</div>
+                    <span class="vol-badge">Volunteer Senior</span>
+                    <p class="vol-desc">Spesialis Circular Impact Tracker dan pemberdayaan UMKM fesyen.</p>
+                    <button class="vol-btn" onclick="window.open('https://wa.me/6285730553648?text=Halo%20Shevi,%20saya%20butuh%20bimbingan%20EcoCycle%20AI')"><i class="fab fa-whatsapp"></i> Chat Bimbingan</button>
+                </div>
+
+                <div class="card vol-card">
+                    <div class="vol-avatar"><i class="fas fa-user-graduate"></i></div>
+                    <div class="vol-name">Moch. Rizal Fahmi</div>
+                    <div class="vol-role">Mahasiswa Teknik Informatika - Universitas Jember</div>
+                    <span class="vol-badge">Volunteer Lokal Jember</span>
+                    <p class="vol-desc">Berpengalaman dalam pengelolaan limbah pesisir dan pemberdayaan masyarakat lokal.</p>
+                    <button class="vol-btn" onclick="window.open('https://wa.me/6281234567890?text=Halo%20Rizal,%20saya%20butuh%20bimbingan%20EcoCycle%20AI')"><i class="fab fa-whatsapp"></i> Chat Bimbingan</button>
+                </div>
+
+                <div class="card vol-card">
+                    <div class="vol-avatar"><i class="fas fa-user-graduate"></i></div>
+                    <div class="vol-name">Rina Widya Lestari</div>
+                    <div class="vol-role">Mahasiswa Manajemen - Universitas Jember</div>
+                    <span class="vol-badge">Volunteer Lokal Jember</span>
+                    <p class="vol-desc">Ahli dalam pemasaran produk daur ulang dan pemberdayaan UMKM lokal.</p>
+                    <button class="vol-btn" onclick="window.open('https://wa.me/6281234567891?text=Halo%20Rina,%20saya%20butuh%20bimbingan%20EcoCycle%20AI')"><i class="fab fa-whatsapp"></i> Chat Bimbingan</button>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -569,9 +652,7 @@
     </div>
 
     <script>
-        // ================================================================
         // DATABASE & LOGIC
-        // ================================================================
         const materialDB = {
             jaring: { name: 'Jaring Nelayan', material: 'Nylon', quality: 'Baik', recycle: '85%', pricePerKg: 10000, category: 'High Value', products: ['Tote Bag', 'Sling Bag', 'Dompet', 'Jaket'], keywords: ['jaring', 'nelayan', 'nylon', 'tali', 'pancing', 'jaring nelayan', 'jaring nylon'] },
             plastik: { name: 'Plastik Laut', material: 'Polyethylene', quality: 'Sedang', recycle: '70%', pricePerKg: 6000, category: 'Medium Value', products: ['Tas Belanja', 'Tas Jinjing', 'Tempat Pensil'], keywords: ['plastik', 'botol', 'kemasan', 'polyethylene', 'plastik laut'] },
@@ -601,10 +682,7 @@
         let totalWaste = riwayatSetoran.reduce((sum, item) => sum + item.berat, 0);
         let deliveryOption = 'antar';
 
-        // ================================================================
         // UI INTERACTIONS
-        // ================================================================
-        
         window.addEventListener('scroll', () => {
             document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
         });
@@ -687,9 +765,7 @@
             }, 150);
         });
 
-        // ================================================================
-        // LOGIC UNTUK FITUR AI (NLP & RULE-BASED DEMO)
-        // ================================================================
+        // FITUR AI DEMO
         document.getElementById('nlpAnalyzeBtn').addEventListener('click', () => {
             const text = document.getElementById('nlpTextInput').value;
             const result = analyzeWasteDescription(text);
@@ -728,9 +804,7 @@
             `).join('');
         });
 
-        // ================================================================
-        // MARKETPLACE & CART LOGIC
-        // ================================================================
+        // MARKETPLACE & CART
         function renderProducts() {
             const grid = document.getElementById('productsGrid');
             grid.innerHTML = products.map(p => {
