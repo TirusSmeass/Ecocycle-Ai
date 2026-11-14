@@ -455,7 +455,79 @@
         </div>
     </section>
 
-    <section class="bg-alt" id="marketplace">
+    <!-- ============================================================== -->
+    <!-- FITUR AI (NLP & RULE-BASED) YANG SEBELUMNYA HILANG -->
+    <!-- ============================================================== -->
+    <section class="bg-alt" id="fitur">
+        <div class="container">
+            <div class="section-badge">Teknologi Inti</div>
+            <h2 class="section-title">NLP + Rule-Based System</h2>
+            <p class="section-desc">Uji coba langsung bagaimana AI kami memproses teks, menghitung nilai ekonomi, dan memberikan rekomendasi produk secara transparan.</p>
+            
+            <div class="features-grid">
+                <!-- Fitur 1: NLP -->
+                <div class="card feature-card">
+                    <div class="icon-box"><i class="fas fa-language"></i></div>
+                    <h4>1. NLP Text Analysis</h4>
+                    <p class="subtitle">Ekstraksi entitas dari deskripsi teks bahasa Indonesia.</p>
+                    <input type="text" class="form-control" id="nlpTextInput" value="jaring nelayan nylon" style="margin-bottom: 12px;">
+                    <button class="btn-primary" id="nlpAnalyzeBtn" style="width: 100%; padding: 8px; font-size: 0.9rem;">Analisis Teks</button>
+                    <div class="demo-output" id="nlpOutput">
+                        <div class="data-row"><span class="label">Terdeteksi</span><span class="value" id="nlpDetected">Jaring Nelayan</span></div>
+                        <div class="data-row"><span class="label">Material</span><span class="value" id="nlpMaterial">Nylon</span></div>
+                        <div class="data-row"><span class="label">Confidence</span><span class="value green" id="nlpConfidence">95%</span></div>
+                    </div>
+                </div>
+
+                <!-- Fitur 2: Rule-Based Valuation -->
+                <div class="card feature-card">
+                    <div class="icon-box"><i class="fas fa-calculator"></i></div>
+                    <h4>2. Rule-Based Valuation</h4>
+                    <p class="subtitle">Perhitungan harga berdasarkan aturan (IF-THEN).</p>
+                    <select class="form-control" id="ruleType" style="margin-bottom: 8px;">
+                        <option value="jaring">Jaring Nelayan</option>
+                        <option value="plastik">Plastik Laut</option>
+                        <option value="tali">Tali Tambang</option>
+                        <option value="kerang">Kerang Laut</option>
+                    </select>
+                    <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                        <input type="number" class="form-control" id="ruleWeight" value="5" placeholder="Berat (kg)">
+                        <select class="form-control" id="ruleQuality">
+                            <option value="Premium">Premium</option>
+                            <option value="Baik" selected>Baik</option>
+                            <option value="Sedang">Sedang</option>
+                            <option value="Rendah">Rendah</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary" id="ruleValuationBtn" style="width: 100%; padding: 8px; font-size: 0.9rem;">Hitung Valuasi</button>
+                    <div class="demo-output" id="ruleOutput">
+                        <div class="data-row"><span class="label">Total Nilai</span><span class="value gold" id="ruleResult">Rp 50.000</span></div>
+                        <div class="data-row"><span class="label">Harga / Kg</span><span class="value" id="rulePerKg">Rp 10.000</span></div>
+                    </div>
+                </div>
+
+                <!-- Fitur 3: Rule-Based Recommendation -->
+                <div class="card feature-card">
+                    <div class="icon-box"><i class="fas fa-lightbulb"></i></div>
+                    <h4>3. Rule-Based Recommendation</h4>
+                    <p class="subtitle">Sistem pakar untuk rekomendasi produk fesyen.</p>
+                    <select class="form-control" id="recType" style="margin-bottom: 12px;">
+                        <option value="jaring">Jaring Nelayan</option>
+                        <option value="plastik">Plastik Laut</option>
+                        <option value="tali">Tali Tambang</option>
+                        <option value="kerang">Kerang Laut</option>
+                    </select>
+                    <button class="btn-primary" id="recBtn" style="width: 100%; padding: 8px; font-size: 0.9rem;">Dapatkan Rekomendasi</button>
+                    <div class="demo-output" id="recList">
+                        <div class="data-row"><span class="label">Tote Bag</span><span class="value green">Sangat Cocok</span></div>
+                        <div class="data-row"><span class="label">Sling Bag</span><span class="value green">Sangat Cocok</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="marketplace">
         <div class="container">
             <div class="section-badge">Pasar Sirkular</div>
             <h2 class="section-title">Marketplace UMKM</h2>
@@ -498,7 +570,7 @@
 
     <script>
         // ================================================================
-        // DATABASE & LOGIC (Tidak diubah)
+        // DATABASE & LOGIC
         // ================================================================
         const materialDB = {
             jaring: { name: 'Jaring Nelayan', material: 'Nylon', quality: 'Baik', recycle: '85%', pricePerKg: 10000, category: 'High Value', products: ['Tote Bag', 'Sling Bag', 'Dompet', 'Jaket'], keywords: ['jaring', 'nelayan', 'nylon', 'tali', 'pancing', 'jaring nelayan', 'jaring nylon'] },
@@ -529,18 +601,14 @@
         let totalWaste = riwayatSetoran.reduce((sum, item) => sum + item.berat, 0);
         let deliveryOption = 'antar';
 
-        const ongkirData = { jember: 0, surabaya: 0, malang: 15000, banyuwangi: 35000, makassar: 130000, papua: 180000 };
-
         // ================================================================
         // UI INTERACTIONS
         // ================================================================
         
-        // Navbar Scroll
         window.addEventListener('scroll', () => {
             document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
         themeToggle.addEventListener('click', () => {
             const html = document.documentElement;
@@ -549,7 +617,6 @@
             themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
         });
 
-        // Form File Upload
         document.getElementById('fileUploadArea').addEventListener('click', () => document.getElementById('wasteFileInput').click());
         document.getElementById('wasteFileInput').addEventListener('change', (e) => {
             if (e.target.files[0]) {
@@ -558,7 +625,6 @@
             }
         });
 
-        // Delivery Options
         document.querySelectorAll('.delivery-opt').forEach(opt => {
             opt.addEventListener('click', () => {
                 document.querySelectorAll('.delivery-opt').forEach(o => o.classList.remove('active'));
@@ -568,7 +634,7 @@
             });
         });
 
-        // NLP Logic (Simplified for modern script)
+        // NLP Logic
         function analyzeWasteDescription(text) {
             let scores = {};
             let bestMatch = 'jaring';
@@ -591,13 +657,11 @@
             const analysis = analyzeWasteDescription(desc);
             const data = materialDB[analysis.detectedType];
             
-            // Show Loading
             document.getElementById('resultPlaceholder').style.display = 'none';
             document.getElementById('resultCard').style.display = 'none';
             document.getElementById('loadingContainer').style.display = 'block';
             document.getElementById('progressText').textContent = 'Menganalisis...';
             
-            // Animate Progress
             let progress = 0;
             const interval = setInterval(() => {
                 progress += 10;
@@ -606,7 +670,6 @@
                     clearInterval(interval);
                     document.getElementById('loadingContainer').style.display = 'none';
                     
-                    // Show Result
                     document.getElementById('resultCard').style.display = 'block';
                     document.getElementById('resultMaterialName').textContent = data.name;
                     document.getElementById('resultMaterialType').textContent = data.material;
@@ -618,14 +681,56 @@
                     document.getElementById('resultProducts').textContent = data.products.join(', ');
                     document.getElementById('nlpAnalysisText').textContent = `NLP mendeteksi: "${data.name}" (${analysis.confidence}% confidence).`;
                     
-                    // Update Hero Total
                     totalWaste += weight;
                     document.getElementById('totalWasteHero').textContent = totalWaste.toLocaleString();
                 }
             }, 150);
         });
 
-        // Render Marketplace
+        // ================================================================
+        // LOGIC UNTUK FITUR AI (NLP & RULE-BASED DEMO)
+        // ================================================================
+        document.getElementById('nlpAnalyzeBtn').addEventListener('click', () => {
+            const text = document.getElementById('nlpTextInput').value;
+            const result = analyzeWasteDescription(text);
+            const data = materialDB[result.detectedType];
+            
+            document.getElementById('nlpDetected').textContent = data.name;
+            document.getElementById('nlpMaterial').textContent = data.material;
+            document.getElementById('nlpConfidence').textContent = result.confidence + '%';
+        });
+
+        document.getElementById('ruleValuationBtn').addEventListener('click', () => {
+            const type = document.getElementById('ruleType').value;
+            const weight = parseFloat(document.getElementById('ruleWeight').value) || 1;
+            const quality = document.getElementById('ruleQuality').value;
+            
+            const data = materialDB[type];
+            let multiplier = 1;
+            if (quality === 'Premium') multiplier = 1.5;
+            if (quality === 'Sedang') multiplier = 0.7;
+            if (quality === 'Rendah') multiplier = 0.4;
+            
+            const pricePerKg = data.pricePerKg * multiplier;
+            const total = pricePerKg * weight;
+            
+            document.getElementById('ruleResult').textContent = 'Rp ' + total.toLocaleString('id-ID');
+            document.getElementById('rulePerKg').textContent = 'Rp ' + pricePerKg.toLocaleString('id-ID');
+        });
+
+        document.getElementById('recBtn').addEventListener('click', () => {
+            const type = document.getElementById('recType').value;
+            const data = materialDB[type];
+            
+            const container = document.getElementById('recList');
+            container.innerHTML = data.products.map(p => `
+                <div class="data-row"><span class="label">${p}</span><span class="value green">Sangat Cocok</span></div>
+            `).join('');
+        });
+
+        // ================================================================
+        // MARKETPLACE & CART LOGIC
+        // ================================================================
         function renderProducts() {
             const grid = document.getElementById('productsGrid');
             grid.innerHTML = products.map(p => {
@@ -651,7 +756,6 @@
             }).join('');
         }
 
-        // Cart Logic
         function addToCart(id) {
             const prod = products.find(p => p.id === id);
             const existing = cart.find(c => c.id === id);
